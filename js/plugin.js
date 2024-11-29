@@ -32,9 +32,9 @@ function utiliserCouleur(bleu, blanc, texte, dropShadow) {
   document.documentElement.style.setProperty("--texte", texte);
   document.documentElement.style.setProperty("--drop-shadow", dropShadow);
 
-  const canvasCacher = localStorage.getItem("canvasCacher") === "true";
+  const themeBlanc = localStorage.getItem("themeBlanc") === "true";
 
-  if (canvasCacher) {
+  if (themeBlanc) {
     document.getElementById("canvas1").style.display = "none";
   } else {
     document.getElementById("canvas1").style.display = "";
@@ -49,6 +49,8 @@ const btnCouleur = document.getElementById("boutonCouleur");
 let etatCouleur = bleu === couleurBase.bleu;
 
 btnCouleur.addEventListener("click", () => {
+  window.location.reload();
+
   if (etatCouleur) {
     utiliserCouleur(
       couleur2.bleu,
@@ -57,11 +59,12 @@ btnCouleur.addEventListener("click", () => {
       couleur2.dropShadow
     );
     document.getElementById("canvas1").style.display = "none";
-    localStorage.setItem("canvasCacher", "true");
+    localStorage.setItem("themeBlanc", "true");
     localStorage.setItem("bleu", couleur2.bleu);
     localStorage.setItem("blanc", couleur2.blanc);
     localStorage.setItem("texte", couleur2.texte);
     localStorage.setItem("dropShadow", couleur2.dropShadow);
+    localStorage.setItem("couleurLigne", JSON.stringify([0, 0, 0]));
   } else {
     utiliserCouleur(
       couleurBase.bleu,
@@ -70,11 +73,12 @@ btnCouleur.addEventListener("click", () => {
       couleurBase.dropShadow
     );
     document.getElementById("canvas1").style.display = "";
-    localStorage.setItem("canvasCacher", "false");
+    localStorage.setItem("themeBlanc", "false");
     localStorage.setItem("bleu", couleurBase.bleu);
     localStorage.setItem("blanc", couleurBase.blanc);
     localStorage.setItem("texte", couleurBase.texte);
     localStorage.setItem("dropShadow", couleurBase.dropShadow);
+    localStorage.setItem("couleurLigne", JSON.stringify([255, 255, 255]));
   }
 
   etatCouleur = !etatCouleur;
